@@ -10,7 +10,7 @@ namespace WeatherForecast.ViewModels
 {
     class WeatherForecastViewModel
     {
-        public List<WeatherForecastModel> Forecasts;
+        public List<WeatherForecastModel> Forecasts { get; set; }
 
         private const string API_KEY = "3c850b0463346d2fffad82b66d5eb561";
 
@@ -39,6 +39,7 @@ namespace WeatherForecast.ViewModels
                         Convert.ToDateTime(token["dt_txt"])
                         ));
                 }
+                Forecasts.Add(new WeatherForecastModel(11, DateTime.Now));
             }
             return this;
         }

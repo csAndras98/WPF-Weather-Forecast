@@ -7,6 +7,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <StackPanel HorizontalAlignment = "Left">
+
+            <ItemsControl ItemsSource = "{Binding Path = Forecasts}">
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation = "Horizontal">
+                            <TextBlock Text = "{Binding Path = Temperature, Mode = OneWay}" 
+                        Margin = "0 5 3 5"/>
+                            <TextBlock Text = "{Binding Path = Date, Mode = OneWay}" 
+                        Margin = "0 5 3 5"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </StackPanel>
     </Grid>
 </UserControl>
