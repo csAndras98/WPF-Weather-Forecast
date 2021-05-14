@@ -27,7 +27,9 @@ namespace WeatherForecast
         private void WeatherForecastViewControl_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModels.WeatherForecastViewModel WeatherForecastViewModelObject = new ViewModels.WeatherForecastViewModel();
-            WeatherForecastViewModelObject.LoadForecasts();
+            WeatherForecastViewModelObject
+                .LoadCurrent()
+                .LoadForecasts();
 
             WeatherForecastViewControl.DataContext = WeatherForecastViewModelObject;
         }

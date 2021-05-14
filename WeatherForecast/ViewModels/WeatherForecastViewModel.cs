@@ -10,9 +10,32 @@ namespace WeatherForecast.ViewModels
 {
     class WeatherForecastViewModel
     {
+        public WeatherForecastModel CurrentWeather { get; set; }
         public List<WeatherForecastModel> Forecasts { get; set; }
 
         private const string API_KEY = "3c850b0463346d2fffad82b66d5eb561";
+
+        public WeatherForecastViewModel LoadCurrent()
+        {
+            string jsonString = "";
+            string url = $"https://api.openweathermap.org/data/2.5/weather?q=budapest&appid={API_KEY}&units=metric";
+
+            using (var client = new HttpClient())
+            {
+                var result = client.GetAsync(url).Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    jsonString = result.Content.ReadAsStringAsync().Result;
+                }
+                var json = JObject.Parse(jsonString);
+
+                CurrentWeather = new WeatherForecastModel(
+                    Convert.ToDouble(json.GetValue("main")["temp"]),
+                    Convert.ToDateTime(json["dt_txt"])
+                    );
+            }
+            return this;
+        }
 
         public WeatherForecastViewModel LoadForecasts()
         {
