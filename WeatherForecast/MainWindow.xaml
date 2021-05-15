@@ -6,6 +6,6 @@
         xmlns:local="clr-namespace:WeatherForecast"
         xmlns:views = "clr-namespace:WeatherForecast.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="416" Width="450">
+        Title="MainWindow" Height="566" Width="550">
     <views:WeatherForecastView x:Name = "WeatherForecastViewControl" Margin="0,0,0,0"/>
 </Window>

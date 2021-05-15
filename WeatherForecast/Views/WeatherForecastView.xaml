@@ -1,10 +1,10 @@
 ﻿<UserControl x:Class="WeatherForecast.Views.WeatherForecastView"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  Height="400" Width="450" Loaded="Window_Loaded">
+  Height="550" Width="550" Loaded="Window_Loaded">
     <Grid Background="LightBlue">
         <Canvas Name="canGraph" Background="White"
-      Width="350" Height="300"
+      Width="500" Height="500"
       VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>
