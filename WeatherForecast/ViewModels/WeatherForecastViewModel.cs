@@ -13,7 +13,7 @@ namespace WeatherForecast.ViewModels
         public WeatherForecastModel CurrentWeather { get; set; }
         public List<WeatherForecastModel> Forecasts { get; set; }
 
-        private const string API_KEY = "3c850b0463346d2fffad82b66d5eb561";
+        private const string API_KEY = "b2ecfac7410f0139da14742856e5f509";
 
         public WeatherForecastViewModel LoadCurrent()
         {
