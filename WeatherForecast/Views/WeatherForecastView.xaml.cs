@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WeatherForecast.ViewModels;
 
 namespace WeatherForecast.Views
 {
@@ -21,6 +22,74 @@ namespace WeatherForecast.Views
         public WeatherForecastView()
         {
             InitializeComponent();
+            ForecastViewModel = new WeatherForecastViewModel()
+                .LoadCurrent()
+                .LoadForecasts();
+        }
+
+        private WeatherForecastViewModel ForecastViewModel;
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            const double margin = 10;
+            double xmin = margin;
+            double xmax = canGraph.Width - margin;
+            double ymin = margin;
+            double ymax = canGraph.Height - margin;
+            const double step = 10;
+
+            GeometryGroup xaxis_geom = new GeometryGroup();
+            xaxis_geom.Children.Add(new LineGeometry(
+                new Point(0, ymax), new Point(canGraph.Width, ymax)));
+            for (double x = xmin + step;
+                x <= canGraph.Width - step; x += step)
+            {
+                xaxis_geom.Children.Add(new LineGeometry(
+                    new Point(x, ymax - margin / 2),
+                    new Point(x, ymax + margin / 2)));
+            }
+
+            Path xaxis_path = new Path();
+            xaxis_path.StrokeThickness = 1;
+            xaxis_path.Stroke = Brushes.Black;
+            xaxis_path.Data = xaxis_geom;
+
+            canGraph.Children.Add(xaxis_path);
+
+            GeometryGroup yaxis_geom = new GeometryGroup();
+            yaxis_geom.Children.Add(new LineGeometry(
+                new Point(xmin, 0), new Point(xmin, canGraph.Height)));
+            for (double y = step; y <= canGraph.Height - step; y += step)
+            {
+                yaxis_geom.Children.Add(new LineGeometry(
+                    new Point(xmin - margin / 2, y),
+                    new Point(xmin + margin / 2, y)));
+            }
+
+            Path yaxis_path = new Path();
+            yaxis_path.StrokeThickness = 1;
+            yaxis_path.Stroke = Brushes.Black;
+            yaxis_path.Data = yaxis_geom;
+
+            canGraph.Children.Add(yaxis_path);
+
+            Brush brush = Brushes.Red;
+            PointCollection points = new PointCollection();
+            for (int i = 0; i < ForecastViewModel.Forecasts.Count; i++)
+            {
+                double last_y = ForecastViewModel.Forecasts.ToArray()[i].Temperature;
+                if (last_y < ymin) last_y = (int)ymin;
+                if (last_y > ymax) last_y = (int)ymax;
+                points.Add(new Point(xmin + i, last_y));
+            }
+
+            Polyline polyline = new Polyline();
+            polyline.StrokeThickness = 1;
+            polyline.Stroke = brush;
+            polyline.Points = points;
+
+            canGraph.Children.Add(polyline);
+
         }
     }
 }
