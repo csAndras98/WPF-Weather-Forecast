@@ -25,7 +25,11 @@ namespace WeatherForecast.Views
             ForecastViewModel = new WeatherForecastViewModel()
                 .LoadCurrent()
                 .LoadForecasts();
+            DataContext = this;
+            CurrentWeather = $"The Current Temperature is {ForecastViewModel.CurrentWeather.Temperature} Celsius Degrees.";
         }
+
+        public string CurrentWeather { get; }
 
         private WeatherForecastViewModel ForecastViewModel;
 
@@ -93,7 +97,6 @@ namespace WeatherForecast.Views
             polyline.Points = points;
 
             canGraph.Children.Add(polyline);
-
         }
     }
 }
