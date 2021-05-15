@@ -75,12 +75,16 @@ namespace WeatherForecast.Views
 
             Brush brush = Brushes.Red;
             PointCollection points = new PointCollection();
-            for (int i = 0; i < ForecastViewModel.Forecasts.Count; i++)
+
+            int i = 0;
+            double LastY;
+            for (double x = xmin; x <= xmax; x += step)
             {
-                double last_y = ForecastViewModel.Forecasts.ToArray()[i].Temperature;
-                if (last_y < ymin) last_y = (int)ymin;
-                if (last_y > ymax) last_y = (int)ymax;
-                points.Add(new Point(xmin + i, last_y));
+                LastY = ForecastViewModel.Forecasts.ToArray()[i].Temperature;
+                if (LastY < ymin) LastY = (int)ymin;
+                if (LastY > ymax) LastY = (int)ymax;
+                points.Add(new Point(x, LastY));
+                i++;
             }
 
             Polyline polyline = new Polyline();
